@@ -1,7 +1,7 @@
 from distutils.core import setup, Extension
 import numpy.distutils.misc_util
 
-c_ext = Extension('_ucrdtw', ['_ucrdtw.c', 'ucrdtw.c'])
+c_ext = Extension('_ucrdtw', ['src/_ucrdtw.c', 'src/ucrdtw.c'])
 
 setup(
     name='ucrdtw',
