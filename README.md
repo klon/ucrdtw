@@ -2,6 +2,7 @@
 
 Python extension for UCR Suite highly optimized subsequence search using Dynamic Time Warping (DTW)
 
+Based on the paper at http://www.cs.ucr.edu/~eamonn/SIGKDD_trillion.pdf
 More info on the UCR Suite web page http://www.cs.ucr.edu/~eamonn/UCRsuite.html
 
 ###Requirements
