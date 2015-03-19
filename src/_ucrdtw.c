@@ -52,12 +52,12 @@ static PyObject* ucrdtw_ucrdtw(PyObject* self, PyObject* args) {
     PyObject* data_array = PyArray_FROM_OTF(data_obj, NPY_DOUBLE, NPY_ARRAY_IN_ARRAY);
     if (data_array == NULL) {
         Py_XDECREF(data_array);
-        Py_XDECREF(verbose_obj);
         PyErr_SetString(PyExc_TypeError, "Data argument must be a list or ndarray");
         return NULL;
     }
 
     if (!PyList_Check(query_obj) && !PyArray_Check(query_obj)) {
+        Py_XDECREF(data_array);
         PyErr_SetString(PyExc_TypeError, "Query argument must be a list or ndarray");
         return NULL;
     }
@@ -65,7 +65,6 @@ static PyObject* ucrdtw_ucrdtw(PyObject* self, PyObject* args) {
     if (query_array == NULL) {
         Py_XDECREF(data_array);
         Py_XDECREF(query_array);
-        Py_XDECREF(verbose_obj);
         PyErr_SetString(PyExc_TypeError, "Query argument must be a list or ndarray");
         return NULL;
     }
@@ -85,9 +84,8 @@ static PyObject* ucrdtw_ucrdtw(PyObject* self, PyObject* args) {
     int status = ucrdtw(data, data_size, query, query_size, warp_width, verbose, &location, &distance);
 
     /* Clean up. */
-    Py_DECREF(data_array);
-    Py_DECREF(query_array);
-    Py_XDECREF(verbose_obj);
+    Py_XDECREF(data_array);
+    Py_XDECREF(query_array);
 
     if (status) {
         PyErr_SetString(PyExc_RuntimeError, "ucrdtw could not allocate memory");
