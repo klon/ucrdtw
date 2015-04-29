@@ -14,14 +14,35 @@ static PyObject* ucrdtw_ucrdtw(PyObject *self, PyObject *args);
 static PyMethodDef module_methods[] = { { "ucrdtw", ucrdtw_ucrdtw, METH_VARARGS, ucrdtw_docstring }, { NULL, NULL, 0, NULL } };
 
 /* Initialize the module */
-PyMODINIT_FUNC init_ucrdtw(void) {
-    PyObject* m = Py_InitModule3("_ucrdtw", module_methods, module_docstring);
-    if (m == NULL) {
-        return;
-    }
+#if PY_MAJOR_VERSION >= 3
+  #define MOD_ERROR_VAL NULL
+  #define MOD_SUCCESS_VAL(val) val
+  #define MOD_INIT(name) PyMODINIT_FUNC PyInit_##name(void)
+  #define MOD_DEF(ob, name, doc, methods) \
+          static struct PyModuleDef moduledef = { \
+            PyModuleDef_HEAD_INIT, name, doc, -1, methods, }; \
+          ob = PyModule_Create(&moduledef);
+#else
+  #define MOD_ERROR_VAL
+  #define MOD_SUCCESS_VAL(val)
+  #define MOD_INIT(name) void init##name(void)
+  #define MOD_DEF(ob, name, doc, methods) \
+          ob = Py_InitModule3(name, methods, doc);
+#endif
 
-    /* Load numpy functionality. */
+MOD_INIT(_ucrdtw)
+{
+    PyObject *m;
+
+    MOD_DEF(m, "_ucrdtw", module_docstring,
+            module_methods)
+
+    if (m == NULL)
+        return MOD_ERROR_VAL;
+
     import_array();
+
+    return MOD_SUCCESS_VAL(m);
 }
 /*
 Calculate the nearest neighbor of a times series in a larger time series expressed as location and distance,
