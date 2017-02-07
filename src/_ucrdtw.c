@@ -96,7 +96,8 @@ static PyObject* ucrdtw_ucrdtw(PyObject* self, PyObject* args) {
 
     double* query = (double*) PyArray_DATA(query_array);
     int query_size = (int) PyArray_DIM(query_array, 0);
-
+    
+    Py_XINCREF(verbose_obj);
     int verbose = verbose_obj != NULL ? PyObject_IsTrue(verbose_obj) : 0;
 
     /* Call the external C function to compute the best DTW location and distance. */
