@@ -9,6 +9,10 @@ More info on the UCR Suite web page http://www.cs.ucr.edu/~eamonn/UCRsuite.html
 ###Requirements
 Python 2.7+, numpy 1.8+
 
+###Installation
+
+`python setup.py build && python setup.py install`
+
 ###Usage
 
 ```
