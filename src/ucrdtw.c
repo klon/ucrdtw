@@ -44,7 +44,10 @@ typedef struct index {
 int index_comp(const void* a, const void* b) {
     index_t* x = (index_t*) a;
     index_t* y = (index_t*) b;
-    return fabs(y->value) - fabs(x->value);   // high to low
+    double v = fabs(y->value) - fabs(x->value);   // high to low
+	if (v < 0) return -1;
+	if (v > 0) return 1;
+	return 0;
 }
 
 /// Data structure (circular array) for finding minimum and maximum for LB_Keogh envolop
