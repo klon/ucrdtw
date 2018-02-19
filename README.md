@@ -1,4 +1,4 @@
-#ucrdtw
+# ucrdtw
 
 Python extension for UCR Suite highly optimized subsequence search using Dynamic Time Warping (DTW)
 
@@ -6,14 +6,14 @@ Based on the paper [Searching and Mining Trillions of Time Series Subsequences u
 
 More info on the UCR Suite web page http://www.cs.ucr.edu/~eamonn/UCRsuite.html
 
-###Requirements
+### Requirements
 Python 2.7+, numpy 1.8+
 
-###Installation
+### Installation
 
 `python setup.py build && python setup.py install`
 
-###Usage
+### Usage
 
 ```
 import _ucrdtw
